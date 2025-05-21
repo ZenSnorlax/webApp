@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: snorlaxreader
+  datasource:
+    url: jdbc:mysql://192.168.100.103:3306/snorlax_reader?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1510017673
+  mail:
+    host: smtp.qq.com # qq邮箱的SMTP
+    username: 1510017673@qq.com # 发送方的qq邮箱
+    password: wfyhxcvydrxehhjf # smtp密码（是16位授权码，不是邮箱密码）
+    default-encoding: UTF-8 # 编码格式
+    protocol: smtp # SMTP邮件协议
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  data:
+    redis:
+      # 连接地址
+      host: 192.168.100.103
+      # 端口
+      port: 6379
+      # 数据库
+      database: 0
+      # 用户名，如果有
+      # username:
+      # 密码，如果有
+      # password:
+      # 连接超时
+      connect-timeout: 5s
+      # 读超时
+      timeout: 5s
+
+      # Lettuce 客户端的配置
+      lettuce:
+        # 连接池配置
+        pool:
+          # 最小空闲连接
+          min-idle: 0
+          # 最大空闲连接
+          max-idle: 8
+          # 最大活跃连接
+          max-active: 8
+          # 从连接池获取连接 最大超时时间，小于等于0则表示不会超时
+          max-wait: -1ms
+    mongodb:
+      host: 192.168.100.103
+      port: 27017
+      username: root
+      password: 1510017673
+      database: snorlax_reader
+  servlet:
+    multipart:
+      max-file-size: 5120MB
+      max-request-size: 5120MB
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8080
+
+# 添加 JWT 的配置
+jwt:
+  secret-key: "24s7Zv3a9F7qk3h0GMa7Q9Q3a7Q9Q3a7Q9Q3a7Q9Q3a7QSA87CD8C78D787CD78C9Q3a7Q9Q3a7Q9Q3a7Q" # 替换为你的JWT密钥
+  expiration-time: 86400000  # 过期时间，单位：毫秒，这里是24小时
+cookie:
+  expiration-time: 86400  # 过期时间，单位：秒，这里是24小时
+minio:
+  endpoint: http://192.168.100.101:9000
+  accessKey: 5mnMZkxaLy9ToSDSHgHd
+  secretKey: wJZpAHVGsQkdXDQBQ0wbndZXHL4NsKNvfEqiA7zh
+  bookContentBucket: book-content
+  bookCoverBucket: book-cover
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+
+

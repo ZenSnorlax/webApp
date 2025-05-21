@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zensnorlax.mapper.BookMapper">
+
+    <select id="selectByKeywords" parameterType="list" resultType="org.zensnorlax.model.pojo.Book">
+        SELECT DISTINCT b.*
+        FROM book b
+        LEFT JOIN book_key bk ON b.id = bk.book_id
+        LEFT JOIN keyword k ON bk.keyword_id = k.id
+        WHERE
+            <foreach collection="keywords" item="keyword" separator=" OR ">
+                k.keyword = #{keyword}
+            </foreach>
+        ORDER BY LENGTH(b.title), LENGTH(b.author)
+    </select>
+
+</mapper>
